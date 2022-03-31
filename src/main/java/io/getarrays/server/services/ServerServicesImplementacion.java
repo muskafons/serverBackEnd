@@ -3,12 +3,14 @@ package io.getarrays.server.services;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Collection;
+import java.util.Random;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.getarrays.server.enumerations.Status;
 import io.getarrays.server.model.Server;
@@ -25,9 +27,15 @@ public class ServerServicesImplementacion {
 
 	public Server create(Server server) {
 		System.out.println("Creando nuevo servidor" + server.getName());
+		server.setImgUrl(setServerImageUrl());
 		return this.serverRepository.save(server);
 	}
 
+	private String setServerImageUrl() {
+		String[] imgNames = { "server1.png", "server2.png", "server3.png", "server4.png" };
+		return ServletUriComponentsBuilder.fromCurrentContextPath()
+				.path("/server/image/" + imgNames[new Random().nextInt(4)]).toUriString();
+	}
 
 	public Server ping(String ipAddress) throws IOException {
 		System.out.println("Haciendo Ping a servidor " + ipAddress);
@@ -51,6 +59,7 @@ public class ServerServicesImplementacion {
 
 	public Server update(Server server) {
 		System.out.println("Actualizando nuevo servidor" + server.getName());
+		server.setImgUrl(setServerImageUrl());
 		return this.serverRepository.save(server);
 	}
 

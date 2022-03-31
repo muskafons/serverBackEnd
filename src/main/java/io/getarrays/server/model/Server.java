@@ -30,6 +30,15 @@ public class Server {
 	private String memory;
 	private String type;
 	private Status status;
+	private String imgUrl;
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
 
 	public Long getId() {
 		return id;
